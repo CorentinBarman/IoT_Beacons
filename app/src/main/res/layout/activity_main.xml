@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:weightSum="4"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="29dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/PositionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Current Room\n RoomX"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            tools:textColor="@color/colorPrimaryDark" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <EditText
+            android:id="@+id/Percentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:ems="3"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="3"
+            android:text="50"
+            android:textCursorDrawable="@color/colorPrimary"
+            android:textSize="30sp"
+            tools:backgroundTint="?android:attr/colorBackground" />
+
+        <TextView
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="%"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/IncrButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="?android:attr/textColorHighlight"
+            android:text="+"
+            android:textSize="30sp"
+            android:textStyle="italic"
+            tools:textColor="@color/colorPrimaryDark" />
+
+        <Button
+            android:id="@+id/DecrButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="?android:attr/textColorHighlight"
+            android:text="-"
+            android:textSize="30sp"
+            android:textStyle="italic"
+            tools:textColor="@color/colorPrimaryDark" />
+
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/LightButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="?android:attr/textColorHighlight"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Light"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textSize="24sp"
+                android:textStyle="italic"
+                tools:layout_editor_absoluteX="148dp"
+                tools:layout_editor_absoluteY="289dp"
+                tools:textColor="@color/colorPrimaryDark" />
+
+
+            <Button
+                android:id="@+id/StoreButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="?android:attr/textColorHighlight"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Store"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textSize="24sp"
+                android:textStyle="italic"
+                tools:layout_editor_absoluteX="148dp"
+                tools:layout_editor_absoluteY="351dp"
+                tools:textColor="@color/colorPrimaryDark" />
+
+            <Button
+                android:id="@+id/RadiatorButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="?android:attr/textColorHighlight"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Radiator"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textSize="24sp"
+                android:textStyle="italic"
+                tools:layout_editor_absoluteX="148dp"
+                tools:layout_editor_absoluteY="418dp"
+                tools:textColor="@color/colorPrimaryDark" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
