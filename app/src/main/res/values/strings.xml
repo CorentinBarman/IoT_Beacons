@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">IoTLab</string>
+    <string name="location_request_title">This app needs location access</string>
+    <string name="location_access_content">Please grant location access so this app can detect BLE devices.</string>
 </resources>
