@@ -7,19 +7,23 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.support.v4.app.ActivityCompat
+import android.support.v7.app.AppCompatActivity
 import android.text.InputFilter
 import android.text.Spanned
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.estimote.coresdk.observation.region.Region
+import com.estimote.coresdk.observation.region.beacon.BeaconRegion
+import com.estimote.coresdk.recognition.packets.Beacon
+import com.estimote.coresdk.service.BeaconManager
+import java.util.*
+import java.nio.file.Files.size
 
-import java.io.Console
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,6 +39,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var LightButton: Button
     lateinit var StoreButton: Button
     lateinit var RadiatorButton: Button
+
+    lateinit var beaconManager: BeaconManager
 
 
     // In the "OnCreate" function below:
@@ -81,12 +87,53 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val allRegions = BeaconRegion("Mint beacon",
+                UUID.fromString("b9407f30-f5f8-466e-aff9-25556b57fe6d".toUpperCase(Locale.ROOT)), 20397, null)
 
+        beaconManager = BeaconManager(this)
 
+        beaconManager.setMonitoringListener(object : BeaconManager.BeaconMonitoringListener{
+            override fun onEnteredRegion(beaconRegion: BeaconRegion?, beacons: MutableList<Beacon>?) {
+                if(beacons?.size != 0)
+                {
+                    for(i in 1..beacons!!.size) {
+                        val beacon = beacons[i-1]
+                        Log.d(TAG, "Beacon entered region, minor: " + beacon.minor + ", RSSI: " + beacon.rssi)
+                    }
+                }
+            }
 
+            override fun onExitedRegion(beaconRegion: BeaconRegion?) {
+                Log.d(TAG, "Beacon exited region")
+            }
+        })
 
+        beaconManager.setRangingListener(BeaconManager.BeaconRangingListener { beaconRegion, beacons ->
+            var closestBeacon : Beacon? = null
+            val n = 2
+            var distance : Int = Int.MAX_VALUE
+            for(beacon in beacons) {
+                Log.d(TAG, "Beacon minor: " + beacon.minor + ", RSSI: " + beacon.rssi)
 
+                val newDistance = (beacon.measuredPower - beacon.rssi)
+                if(closestBeacon != null && distance > newDistance) {
+                    closestBeacon = beacon
+                    distance = newDistance
+                }
 
+                if(closestBeacon == null) {
+                    closestBeacon = beacon
+                }
+            }
+
+            PositionText.text = "Minor ID " + closestBeacon?.minor +  "\n(Major ID " + closestBeacon?.major + ")"
+        })
+
+        beaconManager.connect {
+            Log.d(TAG, "Service Ready for Beacon (Ready to scan)")
+            beaconManager.startMonitoring(allRegions)
+            beaconManager.startRanging(allRegions)
+        }
 
 
         LightButton.setOnClickListener {
@@ -117,6 +164,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        askRequiredBlePermissions()
     }
 
 
